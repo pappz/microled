@@ -1,0 +1,12 @@
+\.promoterignore
+.*\.pytest_cache/.*
+.*__pycache__/.*
+.*test_.*
+\.git/.*
+\.gitignore
+\.idea/.*
+.*\~.*
+moc/.*
+venv/.*
+data.csv
+push_time.txt
