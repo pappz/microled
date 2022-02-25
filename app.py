@@ -7,7 +7,7 @@ except:
     import time
 
 
-_np = neopixel.NeoPixel(Pin(2), 90)
+_np = neopixel.NeoPixel(Pin(2), 144)
 
 
 def power_leds():
