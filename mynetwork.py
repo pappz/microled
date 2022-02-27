@@ -50,7 +50,6 @@ def connect_and_wait():
     _tries = 0
     __connect()
     while True:
-        blinker.blink()
         if not sta_if.isconnected():
             if __has_reached_max_reconnection():
                 raise WifiError()
