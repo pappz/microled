@@ -16,7 +16,7 @@ def reconnect():
     while 1:
         try:
             print("try to connect")
-            _c.connect(False)
+            _c.connect(True)
             _c.subscribe(_topic)
             return
         except OSError as e:
