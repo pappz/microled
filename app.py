@@ -9,7 +9,7 @@ except:
 import mqtt
 import json
 
-_np = neopixel.NeoPixel(Pin(2), 144)
+_np = neopixel.NeoPixel(Pin(0), 144)
 
 
 def on_command(topic, msg):
