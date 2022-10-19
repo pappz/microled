@@ -47,6 +47,7 @@ def connect_and_wait():
         return
 
     global _tries
+    blinker.on()
     _tries = 0
     __connect()
     while True:
@@ -58,6 +59,7 @@ def connect_and_wait():
             time.sleep(1)
             continue
         else:
+            blinker.off()
             _is_connected = True
             return
 

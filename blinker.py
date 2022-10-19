@@ -4,7 +4,7 @@ except:
     from moc.machine import Pin
 
 
-_led = Pin(2, Pin.OUT)
+_led = Pin(15, Pin.OUT)
 _enabled = True
 
 
@@ -16,3 +16,15 @@ def blink():
         _led.on()
 
     _enabled = not _enabled
+
+
+def on():
+    global _enabled
+    _led.on()
+    _enabled = True
+
+
+def off():
+    global _enabled
+    _led.off()
+    _enabled = False

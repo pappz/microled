@@ -56,6 +56,8 @@ def main():
     try:
         import powermgm
         if not powermgm.is_woke_from_deep_sleep():
+            import blinker
+            blinker.on()
             on_hard_reset()
         mynetwork.connect_and_wait()
         if mynetwork.is_connected():
