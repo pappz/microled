@@ -53,15 +53,13 @@ def gc():
 
 
 def main():
-    import app
-    app.on_powered_on()
-
     try:
         import powermgm
         if not powermgm.is_woke_from_deep_sleep():
             on_hard_reset()
         mynetwork.connect_and_wait()
         if mynetwork.is_connected():
+            import app
             app.on_wake_up()
     except mynetwork.WifiError as e:
         print(str(e))

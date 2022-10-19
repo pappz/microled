@@ -1,15 +1,8 @@
-try:
-    from machine import Pin
-    import neopixel
-    import utime as time
-except:
-    from moc.machine import Pin
-    import time
-
 import mqtt
 import json
+import led
 
-_np = neopixel.NeoPixel(Pin(0), 144)
+_led = led.Led()
 
 
 def on_command(topic, msg):
@@ -20,14 +13,11 @@ def on_command(topic, msg):
         print(str(e))
         return
 
-    _np.fill((color["r"], color["g"], color["b"]))
-    _np.write()
+    _led.fade(color["r"], color["g"], color["b"])
 
 
 def power_leds():
-    _np.fill((0, 10, 0))
-    _np.write()
-    pass
+    _led.fade(0, 10, 0)
 
 
 def on_powered_on():
