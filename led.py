@@ -90,7 +90,7 @@ class Led:
             s = self.__random_range(0, 100)
             color = hsl_to_rgb(h, s, l)
             self.fade(color[0], color[1], color[2], max_steps=255, sleep_time=self.__random_range(0.3, 0.5))
-            time.sleep(self.__random_range(6, 15))
+            time.sleep(self.__random_range(15, 30))
 
     def __calc_steps(self, max_steps, diff):
         highest_diff = max(abs(i) for i in diff)
