@@ -33,6 +33,7 @@ class Led:
         self.np.write()
 
     def __calc_steps(self, diff):
-        return max(abs(i) for i in diff)
+        highest_diff = max(abs(i) for i in diff)
+        return min([highest_diff, 50])
 
 
