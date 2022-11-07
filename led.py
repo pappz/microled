@@ -95,11 +95,12 @@ class Led:
         diff[2] = self.color[2] - b
         n_steps = self.__calc_steps(max_steps, diff)
 
-        for i in range(0, 3):
-            diff[i] = int(diff[i] / n_steps)
-
-        for i in range(0, n_steps):
-            self.color = (self.color[0] - diff[0], self.color[1] - diff[1], self.color[2] - diff[2])
+        new_color = [0] * 3
+        for i in range(1, n_steps):
+            new_color[0] = self.color[0] - int(i * diff[0] / n_steps)
+            new_color[1] = self.color[1] - int(i * diff[1] / n_steps)
+            new_color[2] = self.color[2] - int(i * diff[2] / n_steps)
+            self.color = tuple(new_color)
             self.np.fill(self.color)
             self.np.write()
             if sleep_time is not None:
