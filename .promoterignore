@@ -1,3 +1,4 @@
+env/.*
 \.promoterignore
 .*\.pytest_cache/.*
 .*__pycache__/.*
