@@ -82,10 +82,10 @@ class Led:
         l = 30
         while True:
             h = self.__random_range(0, 360)
-            s = self.__random_range(0, 100)
+            s = self.__random_range(70, 80)
             color = colorsys.hls_to_rgb(h, l, s)
             await self.__fade(color[0], color[1], color[2], max_steps=255, sleep_time=self.__random_range(0.3, 0.5))
-            delay = self.__random_range(15, 30)
+            delay = self.__random_range(7, 12)
             await asyncio.sleep(delay)
 
     async def __fade(self, r, g, b, max_steps=50, sleep_time=None):
