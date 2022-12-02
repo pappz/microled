@@ -91,7 +91,7 @@ class Led:
             s = self.__random_range(70, 80)
             color = hsl_to_rgb(h, s, l)
             self.fade(color[0], color[1], color[2], max_steps=255, sleep_time=self.__random_range(0.3, 0.5))
-            time.sleep(self.__random_range(7, 13))
+            time.sleep(self.__random_range(14, 19))
 
     @staticmethod
     def __calc_steps(max_steps, diff):
