@@ -55,7 +55,7 @@ def hsl_convert(c, t1,t2):
 
 
 class Led:
-    color = (100, 100, 100)
+    color = (0, 0, 0)
     np = neopixel.NeoPixel(Pin(0), 144)
     in_progress = False
 
@@ -63,11 +63,11 @@ class Led:
         #self.demo()
         pass
 
-    async def fade(self, r, g, b, max_steps=50, sleep_time_ms=None):
-        await self.__fade(r,g,b, max_steps, sleep_time_ms)
+    async def fade(self, r, g, b, max_steps=50, sleep_time=None):
+        await self.__fade(r,g,b, max_steps, sleep_time)
         self.in_progress = False
 
-    async def __fade(self, r, g, b, max_steps=50, sleep_time_ms=None):
+    async def __fade(self, r, g, b, max_steps=50, sleep_time=None):
         diff = [0] * 3
         diff[0] = self.color[0] - r
         diff[1] = self.color[1] - g
@@ -85,9 +85,8 @@ class Led:
             self.color = tuple([round(float_color[0]), round(float_color[1]),round(float_color[2])])
             self.np.fill(self.color)
             self.np.write()
-            print('fade...')
-            if sleep_time_ms is not None:
-                await asyncio.sleep_ms(sleep_time_ms)
+            if sleep_time:
+                await asyncio.sleep(sleep_time)
 
         self.color = (r, g, b)
         self.np.fill(self.color)
@@ -95,12 +94,16 @@ class Led:
 
     async def demo(self):
         print('start demo')
+        color = hsl_to_rgb(300, 70, 30)
+        await self.__fade(color[0], color[1], color[2], max_steps=255)
+        await asyncio.sleep(5)
+
         while True:
             h = self.__random_range(0, 360)
             s = self.__random_range(70, 80)
             color = hsl_to_rgb(h, s, 30)
-            await self.fade(color[0], color[1], color[2], max_steps=255, sleep_time_ms=int(self.__random_range(0.3, 0.5)*1000))
-            await asyncio.sleep_ms(self.__random_range(14, 19) * 1000)
+            await self.__fade(color[0], color[1], color[2], max_steps=255, sleep_time=self.__random_range(0.3, 0.5))
+            await asyncio.sleep(self.__random_range(14, 19))
 
     @staticmethod
     def __calc_steps(max_steps, diff):
