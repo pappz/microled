@@ -1,3 +1,5 @@
+import uasyncio as asyncio
+
 try:
     from random import getrandbits
     from machine import Pin
@@ -55,11 +57,17 @@ def hsl_convert(c, t1,t2):
 class Led:
     color = (100, 100, 100)
     np = neopixel.NeoPixel(Pin(0), 144)
+    in_progress = False
 
     def __init__(self):
-        self.demo()
+        #self.demo()
+        pass
 
-    def fade(self, r, g, b, max_steps=50, sleep_time=None):
+    async def fade(self, r, g, b, max_steps=50, sleep_time_ms=None):
+        await self.__fade(r,g,b, max_steps, sleep_time_ms)
+        self.in_progress = False
+
+    async def __fade(self, r, g, b, max_steps=50, sleep_time_ms=None):
         diff = [0] * 3
         diff[0] = self.color[0] - r
         diff[1] = self.color[1] - g
@@ -77,21 +85,22 @@ class Led:
             self.color = tuple([round(float_color[0]), round(float_color[1]),round(float_color[2])])
             self.np.fill(self.color)
             self.np.write()
-            if sleep_time is not None:
-                time.sleep(sleep_time)
+            print('fade...')
+            if sleep_time_ms is not None:
+                await asyncio.sleep_ms(sleep_time_ms)
 
         self.color = (r, g, b)
         self.np.fill(self.color)
         self.np.write()
 
-    def demo(self):
-        l = 30
+    async def demo(self):
+        print('start demo')
         while True:
             h = self.__random_range(0, 360)
             s = self.__random_range(70, 80)
-            color = hsl_to_rgb(h, s, l)
-            self.fade(color[0], color[1], color[2], max_steps=255, sleep_time=self.__random_range(0.3, 0.5))
-            time.sleep(self.__random_range(14, 19))
+            color = hsl_to_rgb(h, s, 30)
+            await self.fade(color[0], color[1], color[2], max_steps=255, sleep_time_ms=int(self.__random_range(0.3, 0.5)*1000))
+            await asyncio.sleep_ms(self.__random_range(14, 19) * 1000)
 
     @staticmethod
     def __calc_steps(max_steps, diff):

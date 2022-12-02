@@ -2,7 +2,6 @@ from umqtt.simple import MQTTClient
 import config
 import utime
 
-
 _c = MQTTClient("led", config.mqtt_address, 1883, config.mqtt_user, config.mqtt_pwd, 0)
 _topic = "kesmarki/led"
 
@@ -24,10 +23,20 @@ def reconnect():
 
 
 def wait_for_msg():
-    while 1:
+    while True:
         try:
             print("wait for msg")
             _c.wait_msg()
+            return
         except OSError as e:
             print("mqtt: %r" % e)
             reconnect()
+
+
+def check_msg():
+    try:
+        print("check for msg")
+        _c.check_msg()
+    except OSError as e:
+        print("mqtt: %r" % e)
+        reconnect()
