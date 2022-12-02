@@ -60,19 +60,21 @@ class Led:
         self.demo()
 
     def fade(self, r, g, b, max_steps=50, sleep_time=None):
-
         diff = [0] * 3
         diff[0] = self.color[0] - r
         diff[1] = self.color[1] - g
         diff[2] = self.color[2] - b
         n_steps = self.__calc_steps(max_steps, diff)
 
-        new_color = [0] * 3
+        diff[0] = diff[0] / n_steps
+        diff[1] = diff[1] / n_steps
+        diff[2] = diff[2] / n_steps
+        float_color = list(self.color)
         for i in range(1, n_steps):
-            new_color[0] = self.color[0] - int(i * diff[0] / n_steps)
-            new_color[1] = self.color[1] - int(i * diff[1] / n_steps)
-            new_color[2] = self.color[2] - int(i * diff[2] / n_steps)
-            self.color = tuple(new_color)
+            float_color[0] -= diff[0]
+            float_color[1] -= diff[1]
+            float_color[2] -= diff[2]
+            self.color = tuple([round(float_color[0]), round(float_color[1]),round(float_color[2])])
             self.np.fill(self.color)
             self.np.write()
             if sleep_time is not None:
