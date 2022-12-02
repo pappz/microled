@@ -32,8 +32,8 @@ def on_hard_reset():
         import time
 
     try:
-        print('powered on or hard reset, wait {} sec before start'.format(5, 'sec before start'))
-        time.sleep(5)  # wait to firmware update
+        print('powered on or hard reset, wait {} sec before start'.format(3, 'sec before start'))
+        time.sleep(3)  # wait to firmware update
     except KeyboardInterrupt:
         print("key interrupt")
         import sys
