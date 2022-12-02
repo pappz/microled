@@ -77,6 +77,13 @@ class Led:
             self.np.write()
             time.sleep_ms(25)
 
+    def fade_out(self):
+        n = 144
+        for i in range(n-1, -1, -1):
+            self.np[i] = (0, 0, 0)
+            self.np.write()
+            time.sleep_ms(5)
+
     async def fade(self, r, g, b, max_steps=50, sleep_time=None):
         await self.__fade(r,g,b, max_steps, sleep_time)
         self.in_progress = False

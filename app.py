@@ -47,7 +47,9 @@ def on_command(topic, msg):
             _led.in_progress = True
             task = asyncio.create_task(_led.demo())
         elif jmsg["action"] is "reboot":
+            print('cmd: reboot')
             import machine
+            _led.fade_out()
             machine.reset()
 
     except Exception as e:
