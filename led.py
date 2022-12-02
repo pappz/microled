@@ -63,6 +63,20 @@ class Led:
         #self.demo()
         pass
 
+    def run_effect(self):
+        n = 144
+        width = 10
+        color = (100, 100, 100)
+        for i in range(0, n+width):
+            if i < n:
+                self.np[i] = color
+
+            if i >= width:
+                self.np[i-width] = (0,0,0)
+
+            self.np.write()
+            time.sleep_ms(25)
+
     async def fade(self, r, g, b, max_steps=50, sleep_time=None):
         await self.__fade(r,g,b, max_steps, sleep_time)
         self.in_progress = False

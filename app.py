@@ -8,6 +8,10 @@ task = None
 
 
 def on_wake_up():
+    _led.run_effect()
+
+
+def on_network_ready():
     print("on wake up")
     mqtt.connect(on_command)
     while True:

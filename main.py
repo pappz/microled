@@ -59,10 +59,12 @@ def main():
             import blinker
             blinker.on()
             on_hard_reset()
+
+        import app
+        app.on_wake_up()
         mynetwork.connect_and_wait()
         if mynetwork.is_connected():
-            import app
-            app.on_wake_up()
+            app.on_network_ready()
     except mynetwork.WifiError as e:
         print(str(e))
 
