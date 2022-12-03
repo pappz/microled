@@ -3,7 +3,7 @@ import config
 import utime
 
 _c = MQTTClient("led", config.mqtt_address, 1883, config.mqtt_user, config.mqtt_pwd, 0)
-_topic = "kesmarki/led"
+_topic = "kesmarki/light/flower"
 
 
 def connect(cb):
